@@ -1,0 +1,71 @@
+<html>
+
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="title" placeholder="Введите титл" />
+        <input type="text" name="description" placeholder="Введите описание" />
+        <input type="text" name="author" placeholder="Введите автора" />
+        <input type="number" name="isbn" placeholder="Введите исбн" />
+        <input type="number" name="printYear" placeholder="Введите год" />
+        <input type="number" name="readAlready" placeholder="Введите прочитана ли книга?" />
+
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<div>Список Книг</div>
+<form method="post" action="title">
+    <input type="text" name="title">
+    <button type="submit" h>Найти по титлу</button>
+</form>
+    <div>
+        <table class="tg">
+            <tr>
+                <th>ID</th>
+                <th >Title</th>
+                <th >description</th>
+                <th >author</th>
+                <th >isbn</th>
+                <th >printYear</th>
+                <th >readAlready</th>
+
+            </tr>
+            {{#messages}}
+            <tr>
+        <td>{{id}}</td>
+                <td align="center">{{title}}</td>
+                <td align="center">{{description}}</td>
+                <td align="center">{{author}}</td>
+                <td align="center">{{isbn}}</td>
+                <td align="center">{{printYear}}</td>
+                <td align="center">{{readAlready}}</td>
+            </tr>
+{{/messages}}
+
+        </table>
+        </div>
+
+<div>Удалить Книгу</div>
+<form method="post" action="remove">
+    <input type="number" name="id">
+    <button type="submit">Удаление по id</button>
+</form>
+
+
+<div>Редактирование книги</div>
+<form method="get" action="edit">
+    <input type="number" name="id" >
+
+    <input type="text" name="title" placeholder="е" />
+    <input type="text" name="description" placeholder="Введите описание" />
+    <input type="text" name="author" placeholder="Введите автора" />
+    <input type="number" name="isbn" placeholder="Введите исбн" />
+    <input type="number" name="printYear" placeholder="Введите год" />
+    <input type="number" name="readAlready" placeholder="Введите прочитана ли книга?" />
+
+    <button type="submit">Редактирование книги</button>
+
+</form>
+
+</body>
+</html>
