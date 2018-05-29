@@ -1,6 +1,4 @@
 package books;
-
-
 import books.domain.ListBooks;
 import books.domain.PagerModel;
 import books.repository.BooksRepository;
@@ -19,7 +17,7 @@ import java.util.Optional;
 public class GreetingController {
     private static final int BUTTONS_TO_SHOW = 3;
     private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int INITIAL_PAGE_SIZE = 10;
     private static final int[] PAGE_SIZES = { 5, 10};
     @Autowired
     private BooksRepository booksRepository;
@@ -30,10 +28,9 @@ public class GreetingController {
         model.put("name", name);
         return "add";
     }
-
     @PostMapping("/add")
     public ModelAndView add(@RequestParam String title, @RequestParam String description,
-                      @RequestParam String author, @RequestParam Integer isbn, @RequestParam Integer printYear,
+                      @RequestParam String author, @RequestParam String isbn, @RequestParam Integer printYear,
                       @RequestParam Boolean readAlready, @RequestParam("pageSize") Optional<Integer> pageSize,
                       @RequestParam("page") Optional<Integer> page) {
         if (isbn == null || printYear == null || readAlready == null)
@@ -85,17 +82,26 @@ public class GreetingController {
         return modelAndView;
     }
 
+
     @PostMapping("/updateUser")
     public ModelAndView updateUser(@ModelAttribute("messages") ListBooks user, @RequestParam("pageSize") Optional<Integer> pageSize,
-                             @RequestParam("page") Optional<Integer> page) {
+                                   @RequestParam("page") Optional<Integer> page) {
+
         booksRepository.save(user);
         return homepage(pageSize, page);
     }
 
     @GetMapping("/update/{id}")
-    public String update(@PathVariable("id") int id, Model model) {
+    public ModelAndView update(@PathVariable("id") int id, Model model, @RequestParam("pageSize") Optional<Integer> pageSize,
+                         @RequestParam("page") Optional<Integer> page) {
+        ListBooks user = booksRepository.findById(id);
+        if (user.getReadAlready() == false){
+            user.setReadAlready(true);
+            booksRepository.save(user);
+            return homepage(pageSize, page);
+        }
         model.addAttribute("messages", booksRepository.findById(id));
-        return "update";
+        ModelAndView view = new ModelAndView("update");
+        return view;
     }
-
 }
