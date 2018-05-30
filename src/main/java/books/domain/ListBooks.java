@@ -1,7 +1,5 @@
 package books.domain;
 
-import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +17,7 @@ public class ListBooks {
 
     private String author;
 
-    private String isbn;
+    private Integer isbn;
 
     private Integer printYear;
 
@@ -28,7 +26,15 @@ public class ListBooks {
     public ListBooks() {
     }
 
-    public ListBooks(String title, String description, String author, String isbn, int printYear, Boolean readAlready) {
+    public ListBooks(String title, String description, String author, Integer isbn, Integer printYear) {
+        this.title = title;
+        this.description = description;
+        this.author = author;
+        this.isbn = isbn;
+        this.printYear = printYear;
+    }
+
+    public ListBooks(String title, String description, String author, Integer isbn, Integer printYear, Boolean readAlready) {
         this.title = title;
         this.description = description;
         this.author = author;
@@ -69,11 +75,11 @@ public class ListBooks {
         this.author = author;
     }
 
-    public String getIsbn() {
+    public Integer getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
+    public void setIsbn(Integer isbn) {
         this.isbn = isbn;
     }
 
@@ -91,5 +97,18 @@ public class ListBooks {
 
     public void setReadAlready(Boolean readAlready) {
         this.readAlready = readAlready;
+    }
+
+    @Override
+    public String toString() {
+        return "ListBooks{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", author='" + author + '\'' +
+                ", isbn=" + isbn +
+                ", printYear=" + printYear +
+                ", readAlready=" + readAlready +
+                '}';
     }
 }
